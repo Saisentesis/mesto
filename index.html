@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <title>Mesto</title>
+  <title>Место</title>
 </head>
 
 <body class="page">
@@ -21,56 +21,56 @@
       <div class="profile__info">
         <div class="profile__title">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
+          <button class="profile__edit-button" type="button"></button>
         </div>
         <p class="profile__job">Исследователь океана</p>
       </div>
-      <button class="profile__add-button"></button>
+      <button class="profile__add-button" type="button"></button>
     </section>
 
     <section class="elements">
-      <figure class="element">
+      <div class="element">
         <img class="element__image" src="./images/element-ergaki.jpg" alt="Природный парк Эргаки">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <p class="element__text">Эргаки</p>
-          <button class="element__heart"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
+          <button class="element__heart" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
         <img class="element__image" src="./images/element-altai.jpg" alt="Алтайские горы">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <p class="element__text">Алтай</p>
-          <button class="element__heart"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
+          <button class="element__heart" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
         <img class="element__image" src="./images/element-kosa.jpg" alt="Куршская коса">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <p class="element__text">Куршская коса</p>
-          <button class="element__heart"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
+          <button class="element__heart" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
         <img class="element__image" src="./images/element-karelia.jpg" alt="Карелия">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <p class="element__text">Карелия</p>
-          <button class="element__heart"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
+          <button class="element__heart" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
         <img class="element__image" src="./images/element-kolsky.jpg" alt="Кольский полуостров">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <p class="element__text">Кольский полуостров</p>
-          <button class="element__heart"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
+          <button class="element__heart" type="button"></button>
+        </div>
+      </div>
+      <div class="element">
         <img class="element__image" src="./images/element-sochi.jpg" alt="город Сочи">
-        <figcaption class="element__caption">
+        <div class="element__caption">
           <p class="element__text">Сочи</p>
-          <button class="element__heart"></button>
-        </figcaption>
-      </figure>
+          <button class="element__heart" type="button"></button>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -81,12 +81,12 @@
 
   <div class="popup">
     <div class="popup__container">
-      <button class="popup__close-button"></button>
-      <form class="popup__form">
+      <button class="popup__close-button" type="button"></button>
+      <form class="popup__form" name="popup__form">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__name" value="Жак-Ив Кусто">
-        <input type="text" class="popup__job" value="Исследователь океана">
-        <button class="popup__save-button">Сохранить</button>
+        <input type="text" class="popup__input popup__input_info_name" value="Жак-Ив Кусто" name="popup-name">
+        <input type="text" class="popup__input popup__input_info_job" value="Исследователь океана" name="popup-job">
+        <button class="popup__save-button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
