@@ -29,48 +29,7 @@
     </section>
 
     <section class="elements">
-      <div class="element">
-        <img class="element__image" src="./images/element-ergaki.jpg" alt="Природный парк Эргаки">
-        <div class="element__caption">
-          <p class="element__text">Эргаки</p>
-          <button class="element__heart" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image" src="./images/element-altai.jpg" alt="Алтайские горы">
-        <div class="element__caption">
-          <p class="element__text">Алтай</p>
-          <button class="element__heart" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image" src="./images/element-kosa.jpg" alt="Куршская коса">
-        <div class="element__caption">
-          <p class="element__text">Куршская коса</p>
-          <button class="element__heart" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image" src="./images/element-karelia.jpg" alt="Карелия">
-        <div class="element__caption">
-          <p class="element__text">Карелия</p>
-          <button class="element__heart" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image" src="./images/element-kolsky.jpg" alt="Кольский полуостров">
-        <div class="element__caption">
-          <p class="element__text">Кольский полуостров</p>
-          <button class="element__heart" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image" src="./images/element-sochi.jpg" alt="город Сочи">
-        <div class="element__caption">
-          <p class="element__text">Сочи</p>
-          <button class="element__heart" type="button"></button>
-        </div>
-      </div>
+
     </section>
 
   </main>
@@ -79,17 +38,50 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup popup_type_edit-form">
     <div class="popup__container">
-      <button class="popup__close-button" type="button"></button>
-      <form class="popup__form" name="popup__form">
+      <button class="popup__close-button" type="button" aria-label="закрыть окно редактирования"></button>
+      <form class="popup__form popup__form_type_edit-form" name="popup__form-edit">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input_info_name" value="Жак-Ив Кусто" name="popup-name">
-        <input type="text" class="popup__input popup__input_info_job" value="Исследователь океана" name="popup-job">
+        <input type="text" class="popup__input popup__input_info_name" value="Жак-Ив Кусто" name="popup-edit-name">
+        <input type="text" class="popup__input popup__input_info_job" value="Исследователь океана"
+          name="popup-edit-job">
         <button class="popup__save-button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
+
+  <div class="popup popup_type_add-form">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button" aria-label="закрыть окно добваления карточки"></button>
+      <form class="popup__form popup__form_type_add-form" name="popup__form-add">
+        <h2 class="popup__title">Новое место</h2>
+        <input type="text" class="popup__input popup__input_info_place" placeholder="Название" name="popup-add-place">
+        <input type="text" class="popup__input popup__input_info_link" placeholder="Ссылка на картинку"
+          name="popup-add-link">
+        <button class="popup__save-button" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_type_photo-form">
+    <div class="popup__container popup__container_type_photo-container">
+      <button class="popup__close-button" type="button" aria-label="закрыть окно с увеличенным фото"></button>
+      <img class="popup__image">
+      <p class="popup__caption"></p>
+    </div>
+  </div>
+
+  <template id="card">
+    <div class="element">
+      <button class="element__trash" type="button" aria-label="кнопка удалить"></button>
+      <button class="element__photo-button" type="button"> <img class="element__image" src="#" alt="#"></button>
+      <div class="element__caption">
+        <p class="element__text"></p>
+        <button class="element__heart" type="button" aria-label="кнопка лайк"></button>
+      </div>
+    </div>
+  </template>
 
   <script src="./scripts/index.js"></script>
 </body>
