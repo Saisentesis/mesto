@@ -44,8 +44,10 @@ const popupFormEdit = document.querySelector('.popup__form_type_edit-form');
 const popupFormAdd = document.querySelector('.popup__form_type_add-form');
 const popupEdit = document.querySelector('.popup_type_edit-form');
 const popupAdd = document.querySelector('.popup_type_add-form');
+const popupAddButton = popupAdd.querySelector('.popup__save-button');
 const popupPhoto = document.querySelector('.popup_type_photo-form');
 const popupImage = document.querySelector('.popup__image');
+const popupCaption = document.querySelector('.popup__caption');
 const popupAddPlace = document.querySelector('.popup__input_info_place');
 const popupAddLink = document.querySelector('.popup__input_info_link');
 const card = document.querySelector('#card').content;
@@ -72,7 +74,7 @@ function createCard(cardName,cardLink) {
     openPopup(popupPhoto);
     popupImage.src= cardImage.src;
     popupImage.alt= cardImage.alt;
-    document.querySelector('.popup__caption').textContent= cardClone.querySelector('.element__text').textContent;
+    popupCaption.textContent= cardClone.querySelector('.element__text').textContent;
   });
   return cardClone;
 }
@@ -130,6 +132,8 @@ profileButtonEdit.addEventListener('click',() => {
 
 profileButtonAdd.addEventListener('click',() => {
   openPopup(popupAdd);
+  popupAddButton.setAttribute("disabled", "disabled");
+  popupAddButton.classList.add(validationConfig.inactiveButtonClass);
 });
 
 popupFormEdit.addEventListener('submit',saveProfile);
