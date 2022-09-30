@@ -7,28 +7,32 @@ export default class FormValidator {
     this._inputErrorClass = validationConfig.inputErrorClass;
     this._errorClass = validationConfig.errorClass;
     this._form = form;
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._button = this._form.querySelector(this._submitButtonSelector);
   }
   
   enableValidation() {
-    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const buttonElement = this._form.querySelector(this._submitButtonSelector);
-    this._toggleButtonState(inputList, buttonElement);
-    inputList.forEach((inputElement) => {
+    this._toggleButtonState();
+    this._setEventListeners();
+  }
+
+  _setEventListeners() {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState();
       });
     });
   }
 
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(this._inactiveButtonClass);
-      buttonElement.setAttribute("disabled", "disabled");
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._button.classList.add(this._inactiveButtonClass);
+      this._button.setAttribute("disabled", "disabled");
     }
     else {
-      buttonElement.classList.remove(this._inactiveButtonClass);
-      buttonElement.removeAttribute("disabled", "disabled");
+      this._button.classList.remove(this._inactiveButtonClass);
+      this._button.removeAttribute("disabled", "disabled");
     }
   }
 
@@ -52,8 +56,15 @@ export default class FormValidator {
     errorElement.textContent = '';
   };
 
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  resetValidation() {
+    this._toggleButtonState(); 
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
+
+  _hasInvalidInput(_inputList) {
+    return _inputList.some((inputElement) => {
      return !inputElement.validity.valid;
    });
  }
