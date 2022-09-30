@@ -1,3 +1,6 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -55,36 +58,10 @@ const elements = document.querySelector('.elements');
 const popupCloseButtons = document.querySelectorAll('.popup__close-button');
 const allPopups = document.querySelectorAll('.popup');
 
-function createCard(cardName,cardLink) {
-  const cardClone = card.querySelector('.element').cloneNode(true);
-  const cardImage = cardClone.querySelector('.element__image');
-  cardImage.src = cardLink;
-  cardImage.alt = cardName;
-  cardClone.querySelector('.element__text').textContent = cardName;  
-
-  cardClone.querySelector('.element__heart').addEventListener('click',function (event) {
-    event.target.classList.toggle('element__heart_active');
-  });
-
-  cardClone.querySelector('.element__trash').addEventListener('click',function (event) {
-    event.target.closest('.element').remove();
-  });
-
-  cardClone.querySelector('.element__photo-button').addEventListener('click',function (event) {
-    openPopup(popupPhoto);
-    popupImage.src= cardImage.src;
-    popupImage.alt= cardImage.alt;
-    popupCaption.textContent= cardClone.querySelector('.element__text').textContent;
-  });
-  return cardClone;
-}
-
-function renderCard(card, container) {
-  container.prepend(card);
-} 
-
 initialCards.forEach((item) => { 
-  renderCard(createCard(item.name,item.link),elements);
+  const card = new Card(item.name, item.link, '#card');
+  const cardElement = card.generateCard();
+  elements.prepend(cardElement);
 });
 
 popupCloseButtons.forEach(function(btn) {
@@ -119,10 +96,16 @@ function saveProfile(event) {
 
 function addElement(event) {
   event.preventDefault();
-  renderCard(createCard(popupAddPlace.value,popupAddLink.value),elements);
+  const card = new Card(popupAddPlace.value,popupAddLink.value, '#card');
+  const cardElement = card.generateCard();
+  renderCard(cardElement,elements);
   event.target.reset();
   closePopup(event.target.closest('.popup')); 
 }
+
+function renderCard(card, container) {
+  container.prepend(card);
+} 
 
 profileButtonEdit.addEventListener('click',() => {
   openPopup(popupEdit);
@@ -146,3 +129,11 @@ allPopups.forEach(function(popup) {
    }
   });
 });
+
+const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+formList.forEach((formElement) => {
+  const formValidator = new FormValidator(validationConfig, formElement);
+  formValidator.enableValidation();
+});
+
+export {popupPhoto, popupImage, popupCaption, openPopup};
