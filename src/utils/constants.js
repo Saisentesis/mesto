@@ -40,7 +40,5 @@ const validationConfig = {
   const popupJob = document.querySelector('.popup__input_info_job');
   const profileButtonEdit = document.querySelector('.profile__edit-button');
   const profileButtonAdd = document.querySelector('.profile__add-button');
-  const popupAddPlace = document.querySelector('.popup__input_info_place');
-  const popupAddLink = document.querySelector('.popup__input_info_link');
 
-  export {validationConfig, initialCards, profileName, profileJob, popupName, popupJob, profileButtonEdit, profileButtonAdd, popupAddPlace, popupAddLink}
+  export {validationConfig, initialCards, profileName, profileJob, popupName, popupJob, profileButtonEdit, profileButtonAdd}
