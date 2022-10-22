@@ -7,8 +7,6 @@ const validationConfig = {
     errorClass: 'popup__error_visible'
   }
   
-  const profileName = document.querySelector('.profile__name');
-  const profileJob = document.querySelector('.profile__job');
   const popupName = document.querySelector('.popup__input_info_name');
   const popupJob = document.querySelector('.popup__input_info_job');
   const profileButtonEdit = document.querySelector('.profile__edit-button');
@@ -23,4 +21,4 @@ const validationConfig = {
   const popupDelete = document.querySelector('.popup_type_delete-card');
   const popupDeleteButton = popupDelete.querySelector('.popup__save-button');
 
-  export {validationConfig, profileName, profileJob, popupName, popupJob, profileButtonEdit, profileButtonAdd, profileButtonEditAvatar, popupEditSaveButton, popupAddSaveButton, popupEditAvatarButton, popupDeleteButton}
+  export {validationConfig, popupName, popupJob, profileButtonEdit, profileButtonAdd, profileButtonEditAvatar, popupEditSaveButton, popupAddSaveButton, popupEditAvatarButton, popupDeleteButton}

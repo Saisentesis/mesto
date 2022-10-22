@@ -7,7 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import Api from '../components/Api';
-import {validationConfig, profileName, profileJob, popupName, popupJob, profileButtonEdit, profileButtonAdd, profileButtonEditAvatar, popupEditSaveButton, popupAddSaveButton, popupEditAvatarButton, popupDeleteButton} from '../utils/constants.js';
+import {validationConfig, popupName, popupJob, profileButtonEdit, profileButtonAdd, profileButtonEditAvatar, popupEditSaveButton, popupAddSaveButton, popupEditAvatarButton, popupDeleteButton} from '../utils/constants.js';
 import { isLoading } from '../utils/utils.js'
 import './index.css';
 
@@ -19,15 +19,14 @@ baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-52',
   }
 }); 
 
-api.getInitialCards()
-.then(initialCards => {
-  section.renderItems(initialCards);
-})
-.catch((err) => console.log(err));
-
-api.getUserInfo()
-.then(owner => {
+Promise.all([
+  api.getInitialCards(),
+  api.getUserInfo()
+])
+.then((value) => {
+  const [initialCards, owner] = value;
   userInfo.setUserInfo(owner);
+  section.renderItems(initialCards);
 })
 .catch((err) => console.log(err));
 
@@ -39,13 +38,13 @@ const section = new Section({renderer: (item) => {
 }, '.elements');
 
 function createCard(cardInfo) {
-  const card = new Card(cardInfo, userInfo.getUserInfo()._id, '#card', handleCardClick, handleCardOpenConfirmPopup, setLike, removeLike);
+  const card = new Card(cardInfo, userInfo.getUserId(), '#card', handleCardClick, handleCardOpenConfirmPopup, setLike, removeLike);
   const cardElement = card.generateCard();
   return cardElement
 }
 
-function handleCardOpenConfirmPopup(id) {
-  popupConfirmDelete.open(id);
+function handleCardOpenConfirmPopup(id, deleteCard) {
+  popupConfirmDelete.open(id, deleteCard);
 }
 
 function handleCardClick(name,link) {
@@ -55,9 +54,7 @@ function handleCardClick(name,link) {
 function setLike(id) {
   api.setLike(id)
   .then((res) => {
-    this._cardLikes = res.likes; //перезаписываем массив лайкнувших
-    this.setLikeCount();
-    this._heart.classList.add('element__heart_active');
+    this.renewLikes(res.likes);
   })
   .catch((err) => {
     console.log(err)
@@ -67,9 +64,7 @@ function setLike(id) {
 function removeLike(id) {
   api.removeLike(id)
   .then((res) => {
-    this._cardLikes = res.likes;
-    this.setLikeCount();
-    this._heart.classList.remove('element__heart_active');
+    this.renewLikes(res.likes);
   })
   .catch((err) => {
     console.log(err)
@@ -113,11 +108,11 @@ const popupFormEditAvatar = new PopupWithForm({popupSelector: '.popup_type_edit-
 
 const popupWithImage = new PopupWithImage({popupSelector: '.popup_type_photo-form'});
 
-const popupConfirmDelete = new PopupWithConfirmation({popupSelector: '.popup_type_delete-card', handleFormSubmit: (id) => {
+const popupConfirmDelete = new PopupWithConfirmation({popupSelector: '.popup_type_delete-card', handleFormSubmit: (id, deleteCard) => {
   isLoading(popupDeleteButton, 'Удаление...');
   api.deleteCard(id)
   .then(() => {
-    document.getElementById(id).remove();
+    deleteCard();
     popupConfirmDelete.close();
   })
   .catch((err) => console.log(err))
@@ -132,8 +127,9 @@ popupConfirmDelete.setEventListeners();
 
 profileButtonEdit.addEventListener('click',() => {
   popupWithFormEdit.open();
-  popupName.value = profileName.textContent; 
-  popupJob.value = profileJob.textContent;
+  const profileInfo = userInfo.getUserInfo();
+  popupName.value = profileInfo.name; 
+  popupJob.value = profileInfo.job;
   formValidators['popup__form-edit'].resetValidation();
 });
 

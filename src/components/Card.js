@@ -52,14 +52,14 @@ export default class Card {
     });
     
     this._trash.addEventListener('click', () => {
-      this._handleCardOpenConfirmPopup(this._element.id);
+      this._handleCardOpenConfirmPopup(this._element.id, this.deleteCard.bind(this));
     });
     
     this._photoButton.addEventListener('click',() => {
       this._handleCardClick(this._cardName, this._cardLink);
     });
   }
-//возвращает true если в массиве лайкнувших есть пользователь.
+
   _isLikedByOwner() {
     let isLiked = false;
     this._cardLikes.forEach((item) => {
@@ -69,22 +69,27 @@ export default class Card {
     })
     return isLiked;
   }
-//при генерации карточки делаем сердечко активным, если пользователь ставил лайк
+
   _setLikeStatus() {
     if (this._isLikedByOwner()) {
       this._heart.classList.add('element__heart_active');
     }
   }
 
-  setLikeCount() {
+  renewLikes(likes) {
+    this._cardLikes = likes;
     this._likeCount.textContent = this._cardLikes.length;
+    this._heart.classList.toggle('element__heart_active');
   }
 
-//удаляем значок корзины если пользователь не владелец карточки
   _removeElementTrash() {
     if (this._userId != this._cardOwner._id) {
       this._trash.remove();
     }
+  }
+
+  deleteCard() {
+    this._element.remove();
   }
   
 }
