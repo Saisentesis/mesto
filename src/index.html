@@ -17,7 +17,9 @@
   <main>
 
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/Avatar.png')%>" alt="Аватар в профиле">
+      <div class="profile__avatar" alt="Аватар в профиле">
+        <button class="profile__edit-avatar-button" type="button"></button>
+      </div>
       <div class="profile__info">
         <div class="profile__title">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -43,10 +45,10 @@
       <button class="popup__close-button" type="button" aria-label="закрыть окно редактирования"></button>
       <form class="popup__form popup__form_type_edit-form" name="popup__form-edit" novalidate>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input_info_name" id="name-input" value="Жак-Ив Кусто" name="popupeditname" placeholder="Имя" minlength="2" maxlength="40" required>
+        <input type="text" class="popup__input popup__input_info_name" id="name-input" value="Жак-Ив Кусто" name="name" placeholder="Имя" minlength="2" maxlength="40" required>
         <span class="popup__input-error" id="name-input-error"></span>
         <input type="text" class="popup__input popup__input_info_job" id="job-input" value="Исследователь океана"
-          name="popupeditjob" placeholder="Занятие" minlength="2" maxlength="200" required>
+          name="about" placeholder="Занятие" minlength="2" maxlength="200" required>
         <span class="popup__input-error" id="job-input-error"></span>
         <button class="popup__save-button" type="submit">Сохранить</button>
       </form>
@@ -76,13 +78,39 @@
     </div>
   </div>
 
+  <div class="popup popup_type_edit-avatar">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button" aria-label="закрыть окно редактирования"></button>
+      <form class="popup__form popup__form_type_edit-avatar" name="editavatarform" novalidate>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <input type="url" class="popup__input" id="avatar-link-input" name="editavatarinput"
+          placeholder="Ссылка" required>
+        <span class="popup__input-error" id="avatar-link-input-error"></span>
+        <button class="popup__save-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_type_delete-card">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button" aria-label="закрыть окно подтверждения удаления"></button>
+      <form class="popup__form popup__form_type_delete-form" name="popup__form-delete">
+        <h2 class="popup__title">Вы уверены?</h2>
+        <button class="popup__save-button" type="submit">Да</button>
+      </form>
+    </div>
+  </div>
+
   <template id="card">
     <div class="element">
       <button class="element__trash" type="button" aria-label="кнопка удалить"></button>
       <button class="element__photo-button" type="button"> <img class="element__image" src="#" alt="#"></button>
       <div class="element__caption">
         <p class="element__text"></p>
-        <button class="element__heart" type="button" aria-label="кнопка лайк"></button>
+        <div class="element__like-area">
+          <button class="element__heart" type="button" aria-label="кнопка лайк"></button>
+          <p class="element__like-count"></p>
+        </div>
       </div>
     </div>
   </template>
